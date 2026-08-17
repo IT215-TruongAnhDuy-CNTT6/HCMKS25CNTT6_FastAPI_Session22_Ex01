@@ -1,7 +1,14 @@
+import os
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
-DATABASE_URL = "mysql+pymysql://root:123456@localhost:3306/dev_db"
+load_dotenv()
+
+MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
+MYSQL_PORT = os.getenv("MYSQL_PORT")
+
+DATABASE_URL = f"mysql+pymysql://root:{MYSQL_PASSWORD}@localhost:{MYSQL_PORT}/medical_db"
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(
